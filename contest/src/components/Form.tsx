@@ -77,7 +77,7 @@ export default function FormComponent() {
                 <Button type="primary" htmlType="submit" style={{background: "red", borderRadius: 3, fontWeight: 700}}>
                     Submit
                 </Button>
-                <p style={{fontSize: "x-small"}}>
+                <p style={{fontSize: "small"}}>
                     By submitting this form, you're consenting to the use of your personal information by Persado to
                     receive relevant emails about our upcoming services and promotions.
                 </p>
