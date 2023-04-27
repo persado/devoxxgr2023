@@ -10,20 +10,41 @@ export default function FormComponent() {
         // TODO Proceed to save values
         console.log(values);
 
-        // Notify the user on success and reset form
-        notification.open({
-            message: 'Good Luck!',
-            description:
-                'Thank you for participating. You\'ll be notified in your email in case of winning.',
-            onClose: () => {
-                form.resetFields()
-            }
-        });
+        register(values);
+
+        // // Notify the user on success and reset form
+        // notification.open({
+        //     message: 'Good Luck!',
+        //     description:
+        //         'Thank you for participating. You\'ll be notified in your email in case of winning.',
+        //     onClose: () => {
+        //         form.resetFields()
+        //     }
+        // });
     };
 
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
     };
+
+    function register(values: any) {
+        fetch('http://localhost:8080/register', {
+            method: 'POST',
+            body: JSON.stringify(values),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((res) =>
+                res.json()
+            )
+            .then((post) => {
+               console.log("Successfully registered!")
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    }
 
     return (
         <Form form={form} layout={"vertical"}
@@ -40,19 +61,32 @@ export default function FormComponent() {
                 rules={[
                     {
                         type: 'email',
-                        message: 'The input is not valid E-mail!',
+                        message: 'The input is not valid E-mail',
                     },
                     {
                         required: true,
-                        message: 'Please input your E-mail!',
-                    },
+                        message: 'Please input your E-mail',
+                    }
                 ]}>
                 <Input/>
             </Form.Item>
 
             <Form.Item
-                label="Name: "
-                name="name">
+                label="Full name: "
+                name="name"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Full name cannot be blank',
+                        validator: (_, value) => {
+                            if (value == null || value.trim() === '') {
+                                return Promise.reject();
+                            } else {
+                                return Promise.resolve();
+                            }
+                        }
+                    }
+                ]}>
                 <Input/>
             </Form.Item>
 
@@ -68,7 +102,7 @@ export default function FormComponent() {
                 </Select>
             </Form.Item>
 
-            <Form.Item name="interested" valuePropName="checked">
+            <Form.Item name="openToWork" valuePropName="checked">
                 <Checkbox>Currently looking for a job?</Checkbox>
             </Form.Item>
 
