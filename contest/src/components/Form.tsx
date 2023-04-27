@@ -1,13 +1,15 @@
 import * as React from "react";
 import {Button, Form, Input, Select, notification, Checkbox} from "antd";
 import ExpirationService from "../services/ExpirationService";
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+
 
 export default function FormComponent() {
     // use state to memoize data and change it when we need it
     const [data, setData] = React.useState({});
     const [form] = Form.useForm();
-    const navigate = useNavigate();
+
+    const registerUrl = process.env.REACT_APP_API_URL + '/register';
 
     const handleSuccess = (values: any) => {
         // TODO Proceed to save values
@@ -37,7 +39,7 @@ export default function FormComponent() {
     };
 
     function register(values: any) {
-        fetch('http://localhost:8080/register', {
+        fetch(registerUrl, {
             method: 'POST',
             body: JSON.stringify(values),
             headers: {
@@ -48,7 +50,7 @@ export default function FormComponent() {
                 res.json()
             )
             .then((post) => {
-               console.log("Successfully registered!")
+                console.log("Successfully registered!")
             })
             .catch((err) => {
                 console.log(err.message);

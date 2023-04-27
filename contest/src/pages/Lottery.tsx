@@ -18,6 +18,8 @@ function Lottery() {
     const [luckyNum, setLuckyNum] = useState<any | null>(null)
     const [winners, setWinners] = useState<any | null>(null)
 
+    const lotteryUrl = process.env.REACT_APP_API_URL + '/lottery/';
+
     function handleSuccess(values: any) {
         console.log(values);
         // setLuckyNum(values.lotteryNum);
@@ -33,7 +35,7 @@ function Lottery() {
 
         const data = await (
             await fetch(
-                'http://localhost:8080/lottery/' + luckyNum, {
+                lotteryUrl + luckyNum, {
                     method: 'POST',
                     headers: {
                         'Content-type': 'application/json; charset=UTF-8',
