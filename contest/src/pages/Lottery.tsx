@@ -48,7 +48,7 @@ function Lottery() {
         <div>
             <br/>
             <Row justify={"center"}>
-                <Form form={form} layout={"inline"}
+                <Form form={form} layout={"horizontal"}
                       name="basic"
                       onFinish={handleSuccess}
                       onFinishFailed={onFinishFailed}

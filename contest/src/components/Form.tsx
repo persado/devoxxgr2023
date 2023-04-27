@@ -1,16 +1,25 @@
 import * as React from "react";
 import {Button, Form, Input, Select, notification, Checkbox} from "antd";
+import ExpirationService from "../services/ExpirationService";
+import { useNavigate } from 'react-router-dom';
 
 export default function FormComponent() {
     // use state to memoize data and change it when we need it
     const [data, setData] = React.useState({});
     const [form] = Form.useForm();
+    const navigate = useNavigate();
 
     const handleSuccess = (values: any) => {
         // TODO Proceed to save values
         console.log(values);
 
-        register(values);
+        if (ExpirationService.contestExpired()) {
+            console.log("expired");
+            window.location.reload();
+        } else {
+            register(values);
+        }
+
 
         // // Notify the user on success and reset form
         // notification.open({

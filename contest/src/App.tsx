@@ -9,7 +9,7 @@ const {Header, Content, Footer} = Layout;
 
 function App() {
     return (
-        <Layout className="site-layout">
+        <Layout style={{ minHeight: "100vh" }}>
 
             <Header style={{textAlign: 'center', color: "white"}}> Persado contest </Header>
 
