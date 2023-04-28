@@ -77,6 +77,10 @@ export default function FormComponent() {
                     {
                         required: true,
                         message: 'Please input your E-mail',
+                    },
+                    {
+                        max: 80,
+                        message: "E-mail must be less than 80 characters",
                     }
                 ]}>
                 <Input/>
@@ -96,6 +100,10 @@ export default function FormComponent() {
                                 return Promise.resolve();
                             }
                         }
+                    },
+                    {
+                        max: 200,
+                        message: "Full name must be less than 200 characters",
                     }
                 ]}>
                 <Input/>
