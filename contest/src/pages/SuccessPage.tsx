@@ -1,7 +1,7 @@
 import React from "react";
 import {Row} from "antd";
 
-function Success() {
+function SuccessPage() {
     return (
         <Row justify="center">
             <h1> Thank you! </h1>
@@ -9,4 +9,4 @@ function Success() {
     );
 }
 
-export default Success;
+export default SuccessPage;

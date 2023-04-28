@@ -3,7 +3,7 @@ import wheel from "../wheel.webp";
 import FormComponent from "../components/Form";
 import React from "react";
 
-function Subscribe() {
+function RegisterPage() {
     return (
         <Row justify="center">
             <Col xs={24} xl={8} style={{textAlign: 'center', padding:20}}>
@@ -16,5 +16,5 @@ function Subscribe() {
     );
 }
 
-export default Subscribe;
+export default RegisterPage;
 

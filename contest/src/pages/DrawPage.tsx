@@ -1,24 +1,32 @@
-import React, {useEffect, useRef, useState} from "react";
-import {Button, Checkbox, Form, Input, InputNumber, Row, Select, Table} from "antd";
+import React, { useState} from "react";
+import {Button,  Form,  InputNumber, Row,  Table} from "antd";
+import TotalParticipants from "../components/TotalParticipants";
 
 
 const columns = [
+
+    {
+        title: "Draw Id",
+        dataIndex: "drawId",
+        width: '10%'
+    },
     {
         title: "Email",
         dataIndex: "email",
     },
     {
-        title: "Name",
-        dataIndex: "name",
+        title: "Full name",
+        dataIndex: "fullname",
     }
+
 ]
 
-function Lottery() {
+function DrawPage() {
     const [form] = Form.useForm();
     const [luckyNum, setLuckyNum] = useState<any | null>(null)
-    const [winners, setWinners] = useState<any | null>(null)
+    const [data, setData] = useState<any | null>(null)
 
-    const lotteryUrl = process.env.REACT_APP_API_URL + '/lottery/';
+    const drawUrl = process.env.REACT_APP_API_URL + '/draw?';
 
     function handleSuccess(values: any) {
         console.log(values);
@@ -35,19 +43,24 @@ function Lottery() {
 
         const data = await (
             await fetch(
-                lotteryUrl + luckyNum, {
+                drawUrl + new URLSearchParams( {"idx": luckyNum}),
+                {
                     method: 'POST',
                     headers: {
                         'Content-type': 'application/json; charset=UTF-8',
-                    },
+                    }
                 }
             )
         ).json();
-        setWinners(data);
+        setData(data.winnersList);
     };
 
     return (
         <div>
+            <br/>
+            <Row justify={"center"}>
+                <TotalParticipants/>
+            </Row>
             <br/>
             <Row justify={"center"}>
                 <Form form={form} layout={"horizontal"}
@@ -66,7 +79,7 @@ function Lottery() {
                                 message: 'Please input the lottery number',
                             }
                         ]}>
-                        <InputNumber min={0} onChange={(value) => {
+                        <InputNumber min={0} max={9} onChange={(value) => {
                             setLuckyNum(value)
                         }}/>
 
@@ -81,6 +94,8 @@ function Lottery() {
                 </Form>
             </Row>
 
+
+
             <br/>
 
             <Row justify={"center"}>
@@ -88,7 +103,7 @@ function Lottery() {
             </Row>
 
             <div>
-                <Table dataSource={winners} columns={columns} pagination={false} rowKey='email'/>
+                <Table dataSource={data} columns={columns} pagination={false} rowKey='email'/>
             </div>
 
 
@@ -99,4 +114,4 @@ function Lottery() {
     );
 }
 
-export default Lottery;
+export default DrawPage;

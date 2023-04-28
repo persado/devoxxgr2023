@@ -84,7 +84,7 @@ export default function FormComponent() {
 
             <Form.Item
                 label="Full name: "
-                name="name"
+                name="fullname"
                 rules={[
                     {
                         required: true,
@@ -113,7 +113,7 @@ export default function FormComponent() {
                 </Select>
             </Form.Item>
 
-            <Form.Item name="openToWork" valuePropName="checked">
+            <Form.Item name="canContact" valuePropName="checked">
                 <Checkbox>Currently looking for a job?</Checkbox>
             </Form.Item>
 

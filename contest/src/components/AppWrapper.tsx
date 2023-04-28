@@ -1,5 +1,5 @@
 import {Outlet} from "react-router-dom";
-import ContestExpired from "../pages/ContestExpired";
+import ContestExpired from "./ContestExpired";
 import ExpirationService from "../services/ExpirationService";
 
 function AppWrapper() {

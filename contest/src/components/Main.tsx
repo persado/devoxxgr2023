@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
-import Success from "../pages/Success";
-import Subscribe from "../pages/Subscribe";
-import Lottery from "../pages/Lottery";
+import SuccessPage from "../pages/SuccessPage";
+import RegisterPage from "../pages/RegisterPage";
+import DrawPage from "../pages/DrawPage";
 import AppWrapper from "./AppWrapper";
 
 function Main() {
@@ -9,10 +9,10 @@ function Main() {
 
     <Routes>
         <Route path="/" element={<AppWrapper/>}  >
-            <Route path="" element={<Subscribe/>} />
-            <Route path='/success' element={<Success/>} />
+            <Route path="" element={<RegisterPage/>} />
+            <Route path='/success' element={<SuccessPage/>} />
         </Route>
-        <Route path='/lottery' element={<Lottery/>} />
+        <Route path='/draw' element={<DrawPage/>} />
     </Routes>
     );
 }
