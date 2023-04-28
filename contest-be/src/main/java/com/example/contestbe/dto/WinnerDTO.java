@@ -9,7 +9,8 @@ import lombok.Setter;
 @Setter
 @Builder
 @AllArgsConstructor
-public class WinnerResponseDTO {
+public class WinnerDTO {
     private String email;
-    private String name;
+    private String fullname;
+    private Integer drawId;
 }

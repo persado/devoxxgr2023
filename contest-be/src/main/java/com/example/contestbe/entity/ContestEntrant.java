@@ -13,18 +13,31 @@ import java.time.Instant;
 @Entity
 @Getter
 @Setter
-public class Registration {
+public class ContestEntrant {
     @Id
     private String email;
-    private String name;
-    private String stack;
 
-    private Boolean openToWork;
+    private String fullname;
+
+    private Integer idx;
+
+    private String hash;
+
+    private Long drawId;
 
     @Column(updatable = false)
     @CreationTimestamp
-    private Instant createdAt;
+    private Instant entryTs;
 
-    private String md5Hex;
+    private Boolean canContact;
+
+    private String stack;
+
+
+
+
+
+
+
 
 }

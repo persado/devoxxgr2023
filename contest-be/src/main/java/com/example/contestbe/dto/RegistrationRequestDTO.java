@@ -9,8 +9,8 @@ import lombok.Setter;
 @Builder
 public class RegistrationRequestDTO {
     private String email;
-    private String name;
+    private String fullname;
     private String stack;
-    private Boolean openToWork;
-    private String md5Hex;
+    private Boolean canContact;
+    private String hash;
 }
