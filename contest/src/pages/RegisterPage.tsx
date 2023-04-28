@@ -1,6 +1,6 @@
 import {Col, Row} from "antd";
 import wheel from "../wheel.webp";
-import FormComponent from "../components/Form";
+import RegistrationForm from "../components/RegistrationForm";
 import React from "react";
 
 function RegisterPage() {
@@ -10,7 +10,7 @@ function RegisterPage() {
                 <img src={wheel} className="App-logo" alt="wheel" style={{maxWidth: 300, maxHeight: 300}}/>
             </Col>
             <Col xs={24} xl={8} style={{padding: 20}}>
-                <FormComponent/>
+                <RegistrationForm/>
             </Col>
         </Row>
     );

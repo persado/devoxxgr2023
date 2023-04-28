@@ -1,10 +1,9 @@
 import * as React from "react";
 import {Button, Form, Input, Select, notification, Checkbox} from "antd";
 import ExpirationService from "../services/ExpirationService";
-import {useNavigate} from 'react-router-dom';
 
 
-export default function FormComponent() {
+export default function RegistrationForm() {
     // use state to memoize data and change it when we need it
     const [data, setData] = React.useState({});
     const [form] = Form.useForm();
