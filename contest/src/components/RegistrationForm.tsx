@@ -1,41 +1,38 @@
 import * as React from "react";
 import {Button, Form, Input, Select, notification, Checkbox} from "antd";
 import ExpirationService from "../services/ExpirationService";
+import {useNavigate} from "react-router-dom";
 
 
 export default function RegistrationForm() {
-    // use state to memoize data and change it when we need it
-    const [data, setData] = React.useState({});
+    const registerUrl = process.env.REACT_APP_API_URL + '/register';
+    const navigate = useNavigate();
     const [form] = Form.useForm();
 
-    const registerUrl = process.env.REACT_APP_API_URL + '/register';
-
     const handleSuccess = (values: any) => {
-        // TODO Proceed to save values
-        console.log(values);
-
         if (ExpirationService.contestExpired()) {
-            console.log("expired");
+            console.log("Contest expired");
             window.location.reload();
         } else {
             register(values);
         }
+    };
 
-
-        // // Notify the user on success and reset form
-        // notification.open({
-        //     message: 'Good Luck!',
-        //     description:
-        //         'Thank you for participating. You\'ll be notified in your email in case of winning.',
-        //     onClose: () => {
-        //         form.resetFields()
-        //     }
-        // });
+    const openNotification = (messageTitle: string, data: any) => {
+        notification.error({
+            message: messageTitle,
+            description: (
+                <pre>
+                    {data}
+                </pre>
+            )
+        })
     };
 
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
     };
+
 
     function register(values: any) {
         fetch(registerUrl, {
@@ -45,16 +42,32 @@ export default function RegistrationForm() {
                 'Content-type': 'application/json; charset=UTF-8',
             },
         })
-            .then((res) =>
-                res.json()
+            .then(res => {
+                    if (!res.ok) {
+                        res.json()
+                            .then(data => {
+                                    console.log(data);
+                                    if (data.errorMessages) {
+                                        openNotification("Error " + res.status, data.errorMessages.join(`\n`));
+                                    } else {
+                                        openNotification("Error " + res.status, "Unable to perform registration");
+                                    }
+                                }
+                            )
+                            .catch((err) => {
+                                openNotification("Error " + res.status, "Unable to perform registration");
+                            });
+                    } else {
+                        navigate("/success", {state: {fullName: values.fullname, email: values.email}});
+                    }
+                }
             )
-            .then((post) => {
-                console.log("Successfully registered!")
-            })
             .catch((err) => {
                 console.log(err.message);
+                openNotification("Error", "Unable to perform registration");
             });
     }
+    
 
     return (
         <Form form={form} layout={"vertical"}
@@ -126,7 +139,8 @@ export default function RegistrationForm() {
 
 
             <Form.Item>
-                <Button type="primary" htmlType="submit" style={{background: "red", borderRadius: 3, fontWeight: 700}}>
+                <Button type="primary" htmlType="submit"
+                        style={{background: "red", borderRadius: 3, fontWeight: 700}}>
                     Submit
                 </Button>
                 <p style={{fontSize: "small"}}>
