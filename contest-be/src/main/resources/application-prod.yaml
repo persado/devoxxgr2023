@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    username: <CONFIGURE-ME>
+    password: <CONFIGURE-ME>
+    url: <CONFIGURE-ME>
+
+contest:
+  start-date-validation: true

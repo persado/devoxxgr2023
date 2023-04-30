@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    username: sa
+    password: sa
+    url: jdbc:h2:~/devoxx-contest-db-local
+
+contest:
+  start-date-validation: false

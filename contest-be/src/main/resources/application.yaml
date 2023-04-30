@@ -1,0 +1,14 @@
+server:
+  servlet:
+    context-path: /api/internal
+
+spring:
+  h2:
+    console:
+      enabled: 'true'
+  datasource:
+    driverClassName: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+
