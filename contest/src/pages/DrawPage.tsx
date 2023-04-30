@@ -1,6 +1,7 @@
-import React, { useState} from "react";
-import {Button,  Form,  InputNumber, Row,  Table} from "antd";
+import React, {useState} from "react";
+import {Button, Form, InputNumber, notification, Row, Table} from "antd";
 import TotalParticipants from "../components/TotalParticipants";
+import ResultsTable from "../components/ResultsTable";
 
 
 const columns = [
@@ -28,31 +29,51 @@ function DrawPage() {
 
     const drawUrl = process.env.REACT_APP_API_URL + '/draw?';
 
-    function handleSuccess(values: any) {
+    async function handleSuccess(values: any) {
         console.log(values);
-        // setLuckyNum(values.lotteryNum);
-        dataFetch().then(r => console.log("data fetched"));
+        try {
+            await dataFetch();
+        } catch (e) {
+            openNotification("Error", "Unable to perform draw operation")
+        }
     }
 
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
     };
 
+    const openNotification = (messageTitle: string, data: any) => {
+        notification.error({
+            message: messageTitle,
+            description: (
+                <>
+                    {data}
+                </>
+            )
+        })
+    };
+
     const dataFetch = async () => {
         console.log("Fetching data for lucky num: " + luckyNum);
 
-        const data = await (
-            await fetch(
-                drawUrl + new URLSearchParams( {"idx": luckyNum}),
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-type': 'application/json; charset=UTF-8',
-                    }
+        //TODO add a code input to be verified in the backend
+
+        const res = await fetch(
+            drawUrl + new URLSearchParams({"idx": luckyNum}),
+            {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
                 }
-            )
-        ).json();
-        setData(data.winnersList);
+            }
+        )
+
+        const data = await res.json();
+        if (data.errorMessages) {
+            openNotification("Error " + res.status, data.errorMessages.join(`\n`));
+        } else {
+            setData(data.winnersList);
+        }
     };
 
     return (
@@ -79,6 +100,7 @@ function DrawPage() {
                                 message: 'Please input the lottery number',
                             }
                         ]}>
+
                         <InputNumber min={0} max={9} onChange={(value) => {
                             setLuckyNum(value)
                         }}/>
@@ -94,19 +116,8 @@ function DrawPage() {
                 </Form>
             </Row>
 
-
-
             <br/>
-
-            <Row justify={"center"}>
-                <h3> Results </h3>
-            </Row>
-
-            <div>
-                <Table dataSource={data} columns={columns} pagination={false} rowKey='email'/>
-            </div>
-
-
+                <ResultsTable data={data} columns={columns}/>
             <br/>
         </div>
 

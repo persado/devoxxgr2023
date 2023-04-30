@@ -1,9 +1,16 @@
 import {Col, Row} from "antd";
 import wheel from "../wheel.webp";
 import RegistrationForm from "../components/RegistrationForm";
-import React from "react";
+import React, {useEffect} from "react";
 
 function RegisterPage() {
+
+    useEffect(() => {
+        // TODO view event
+        console.log("Registration Page loaded");
+    }, []);
+
+
     return (
         <Row justify="center">
             <Col xs={24} xl={8} style={{textAlign: 'center', padding:20}}>

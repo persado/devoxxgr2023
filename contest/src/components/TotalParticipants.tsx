@@ -1,6 +1,3 @@
-import {Outlet} from "react-router-dom";
-import ContestExpired from "./ContestExpired";
-import ExpirationService from "../services/ExpirationService";
 import {useEffect, useState} from "react";
 
 function TotalParticipants() {

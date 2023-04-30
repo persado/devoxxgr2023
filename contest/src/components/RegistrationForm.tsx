@@ -22,9 +22,9 @@ export default function RegistrationForm() {
         notification.error({
             message: messageTitle,
             description: (
-                <pre>
+                <>
                     {data}
-                </pre>
+                </>
             )
         })
     };
@@ -67,7 +67,7 @@ export default function RegistrationForm() {
                 openNotification("Error", "Unable to perform registration");
             });
     }
-    
+
 
     return (
         <Form form={form} layout={"vertical"}
