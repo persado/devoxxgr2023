@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin
-public class ContestEntrantController {
+public class RegistrationController {
 
     private final ContestEntrantService contestEntrantService;
 
