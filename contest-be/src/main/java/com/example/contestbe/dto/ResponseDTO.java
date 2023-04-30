@@ -11,6 +11,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RegistrationResponseDTO {
+public class ResponseDTO {
     private Set<String> errorMessages;
 }

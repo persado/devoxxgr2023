@@ -2,7 +2,7 @@ package com.example.contestbe.dao;
 
 import com.example.contestbe.dto.DrawResultDTO;
 import com.example.contestbe.dto.RegistrationRequestDTO;
-import com.example.contestbe.dto.RegistrationResponseDTO;
+import com.example.contestbe.dto.ResponseDTO;
 import com.example.contestbe.dto.WinnerDTO;
 import com.example.contestbe.entity.ContestEntrant;
 import com.example.contestbe.repository.ContestEntrantRepository;
@@ -24,15 +24,15 @@ public class ContestEntrantDAO {
     private final ContestEntrantRepository contestEntrantRepository;
     private final ModelMapper modelMapper;
 
-    public RegistrationResponseDTO save(RegistrationRequestDTO registrationRequestDTO) {
-        RegistrationResponseDTO registrationResponseDTO = new RegistrationResponseDTO();
+    public ResponseDTO save(RegistrationRequestDTO registrationRequestDTO) {
+        ResponseDTO responseDTO = new ResponseDTO();
         try {
             contestEntrantRepository.save(modelMapper.map(registrationRequestDTO, ContestEntrant.class));
         } catch (Exception e) {
             log.error("Unable to register user {}, error: {}", registrationRequestDTO.getEmail(), e.getMessage());
-            registrationResponseDTO.setErrorMessages(Set.of(e.getMessage()));
+            responseDTO.setErrorMessages(Set.of(e.getMessage()));
         }
-        return registrationResponseDTO;
+        return responseDTO;
     }
 
     public DrawResultDTO getWinners(int number) {

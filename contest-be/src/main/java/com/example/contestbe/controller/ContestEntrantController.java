@@ -1,8 +1,9 @@
 package com.example.contestbe.controller;
 
 import com.example.contestbe.dto.RegistrationRequestDTO;
-import com.example.contestbe.dto.RegistrationResponseDTO;
+import com.example.contestbe.dto.ResponseDTO;
 import com.example.contestbe.service.ContestEntrantService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,13 +23,13 @@ public class ContestEntrantController {
     private final ContestEntrantService contestEntrantService;
 
     @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<RegistrationResponseDTO> register(@RequestBody RegistrationRequestDTO registrationRequestDTO) {
-        RegistrationResponseDTO registrationResponseDTO = contestEntrantService.register(registrationRequestDTO);
-        if (CollectionUtils.isEmpty(registrationResponseDTO.getErrorMessages())) {
-            return ResponseEntity.ok(registrationResponseDTO);
+    public ResponseEntity<ResponseDTO> register(@Valid @RequestBody RegistrationRequestDTO registrationRequestDTO) {
+        ResponseDTO responseDTO = contestEntrantService.register(registrationRequestDTO);
+        if (CollectionUtils.isEmpty(responseDTO.getErrorMessages())) {
+            return ResponseEntity.ok(responseDTO);
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(registrationResponseDTO);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDTO);
         }
-
     }
+
 }
