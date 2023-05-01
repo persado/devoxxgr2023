@@ -1,16 +1,14 @@
 package com.example.contestbe.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class WinnerDTO {
     private String email;
     private String fullname;
-    private Integer drawId;
+    private Long drawId;
 }

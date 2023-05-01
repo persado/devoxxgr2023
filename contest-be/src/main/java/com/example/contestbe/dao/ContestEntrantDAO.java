@@ -6,12 +6,17 @@ import com.example.contestbe.dto.ResponseDTO;
 import com.example.contestbe.dto.WinnerDTO;
 import com.example.contestbe.entity.ContestEntrant;
 import com.example.contestbe.repository.ContestEntrantRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
 
@@ -35,23 +40,47 @@ public class ContestEntrantDAO {
         return responseDTO;
     }
 
-    public DrawResultDTO getWinners(int number) {
-        // TODO validate number 0-9
-        // TODO validate current time
-        // TODO perform draw
-        List<WinnerDTO> winnersList = new ArrayList<>();
-        winnersList.add(WinnerDTO.builder().email("someEmail@emailProvider.com").drawId(231939).fullname("Some Email").build());
-        winnersList.add(WinnerDTO.builder().email("someOtherEmail@emailProvider.com").drawId(5995859).fullname("Some Other Email").build());
-
-        return DrawResultDTO.builder()
-                .idx(number)
-                .drawDate("dd/MM/yyyy HH:mm:ss TT")
-                .winnersList(winnersList)
-                .build();
+    @Transactional
+    public DrawResultDTO performDrawAndGetResults(int idx) {
+        if (canPerformDraw()) {
+            // Perform draw
+            performDraw(idx);
+        }
+        return getDrawResults();
     }
 
     public long getTotalParticipants() {
         return contestEntrantRepository.count();
+    }
+
+    private boolean canPerformDraw() {
+        return contestEntrantRepository.countByIdxIsNotNull() == 0;
+    }
+
+    private DrawResultDTO getDrawResults() {
+        List<ContestEntrant> contestEntrants = contestEntrantRepository.findTop20ByDrawIdIsNotNullOrderByDrawIdAsc();
+
+        if (!contestEntrants.isEmpty()) {
+            List<WinnerDTO> winnersList = modelMapper.map(contestEntrants, new TypeToken<List<WinnerDTO>>() {}.getType());
+
+            LocalDateTime ldt = LocalDateTime.ofInstant(contestEntrants.get(0).getDrawDate(), ZoneId.of("Europe/Athens"));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
+            return DrawResultDTO.builder()
+                    .idx(contestEntrants.get(0).getIdx())
+                    .drawDate(ldt.format(formatter))
+                    .winnersList(winnersList)
+                    .build();
+        }
+
+        return DrawResultDTO.builder()
+                .build();
+
+    }
+
+    @Transactional
+    public void performDraw(int idx) {
+        contestEntrantRepository.updateDrawId(idx, Instant.now());
     }
 
 

@@ -26,6 +26,9 @@ public class StatusController {
 
     @GetMapping(value = "/status", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> status() {
-        return ResponseEntity.ok(StatusDTO.builder().profile(activeProfile).contestStartDateValidation(contestStartDateValidation).build());
+        return ResponseEntity.ok(StatusDTO.builder()
+                .profile(activeProfile)
+                .contestStartDateValidation(contestStartDateValidation)
+                .build());
     }
 }

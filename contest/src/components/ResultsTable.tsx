@@ -1,4 +1,4 @@
-import {Row, Table} from "antd";
+import {Divider, Row, Table} from "antd";
 import React from "react";
 
 class ResultsTable extends React.Component<{ data: any, columns: any }> {
@@ -7,11 +7,18 @@ class ResultsTable extends React.Component<{ data: any, columns: any }> {
         if (data) {
             return (
                 <div>
-                    <Row justify={"center"}>
-                        <h3> Results </h3>
-                    </Row>
+                    <Divider plain><h3>Results</h3></Divider>
+                    <div style={{textAlign: 'center'}}>
+                        <p>
+                           <b>Draw number:</b>  {data.idx}
+                        </p>
+                        <p>
+                            <b>Draw datetime:</b> {data.drawDate}
+                        </p>
+                    </div>
+
                     <div>
-                        <Table dataSource={data} columns={columns} pagination={false} rowKey='email'/>
+                        <Table dataSource={data.winnersList} columns={columns} pagination={false} rowKey='email'/>
                     </div>
                 </div>
             )

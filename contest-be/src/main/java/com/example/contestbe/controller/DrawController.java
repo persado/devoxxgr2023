@@ -34,7 +34,7 @@ public class DrawController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseDTO.builder().errorMessages(Set.of("Invalid idx number. Number must be between 0 and 9.")).build());
         }
 
-        return ResponseEntity.ok(contestEntrantService.getWinners(idx));
+        return ResponseEntity.ok(contestEntrantService.performDrawAndGetResults(idx));
 
     }
 

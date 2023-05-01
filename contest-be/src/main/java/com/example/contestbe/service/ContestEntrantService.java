@@ -24,8 +24,8 @@ public class ContestEntrantService {
         return contestEntrantDAO.save(registrationRequestDTO);
     }
 
-    public DrawResultDTO getWinners(int number) {
-        return contestEntrantDAO.getWinners(number);
+    public DrawResultDTO performDrawAndGetResults(int number) {
+        return contestEntrantDAO.performDrawAndGetResults(number);
     }
 
     public long getTotalParticipants() {

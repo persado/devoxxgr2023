@@ -24,7 +24,7 @@ const columns = [
 
 function DrawPage() {
     const [form] = Form.useForm();
-    const [luckyNum, setLuckyNum] = useState<any | null>(null)
+    const [drawNum, setDrawNum] = useState<any | null>(null)
     const [data, setData] = useState<any | null>(null)
 
     const drawUrl = process.env.REACT_APP_API_URL + '/draw?';
@@ -54,12 +54,12 @@ function DrawPage() {
     };
 
     const dataFetch = async () => {
-        console.log("Fetching data for lucky num: " + luckyNum);
+        console.log("Fetching data for draw num: " + drawNum);
 
         //TODO add a code input to be verified in the backend
 
         const res = await fetch(
-            drawUrl + new URLSearchParams({"idx": luckyNum}),
+            drawUrl + new URLSearchParams({"idx": drawNum}),
             {
                 method: 'POST',
                 headers: {
@@ -72,7 +72,7 @@ function DrawPage() {
         if (data.errorMessages) {
             openNotification("Error " + res.status, data.errorMessages.join(`\n`));
         } else {
-            setData(data.winnersList);
+            setData(data);
         }
     };
 
@@ -91,8 +91,8 @@ function DrawPage() {
                 >
 
                     <Form.Item
-                        label="Lottery number : "
-                        name="lotteryNum"
+                        label="Draw number : "
+                        name="drawNumber"
                         rules={[
                             {
                                 type: 'number',
@@ -102,7 +102,7 @@ function DrawPage() {
                         ]}>
 
                         <InputNumber min={0} max={9} onChange={(value) => {
-                            setLuckyNum(value)
+                            setDrawNum(value)
                         }}/>
 
                     </Form.Item>

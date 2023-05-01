@@ -37,6 +37,9 @@ public class ContestEntrant {
 
     private String stack;
 
+    @Column(updatable = false)
+    private Instant drawDate;
+
 
 
 

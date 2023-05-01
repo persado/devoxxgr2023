@@ -1,0 +1,21 @@
+server:
+  servlet:
+    context-path: /api/internal
+
+spring:
+  profiles:
+    active: local
+  h2:
+    console:
+      enabled: 'true'
+  datasource:
+    driverClassName: org.h2.Driver
+    username: sa
+    password: sa
+    url: jdbc:h2:~/devoxx-contest-db
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+contest:
+  start-date-validation: false
