@@ -30,6 +30,7 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::078657849854:role/devoxx-role
           aws-region: ${{ env.AWS_REGION }}
+      - name: Print caller
         run: aws sts get-caller-identity
       - name: Login to Amazon ECR
         id: login-ecr
