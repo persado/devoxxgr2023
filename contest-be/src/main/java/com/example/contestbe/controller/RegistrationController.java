@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin
+@CrossOrigin(origins = {"http://localhost:3000", "https://persado.github.io"})
 public class RegistrationController {
 
     private final ContestEntrantService contestEntrantService;

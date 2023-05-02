@@ -16,7 +16,7 @@ import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin
+@CrossOrigin(origins = {"http://localhost:3000", "https://persado.github.io"})
 @Slf4j
 public class DrawController {
 
