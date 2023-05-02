@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, Form, Input, InputNumber, notification, Row, Table} from "antd";
+import {Button, Form, Input, InputNumber, notification, Row, Spin, Table} from "antd";
 import TotalParticipants from "../components/TotalParticipants";
 import ResultsTable from "../components/ResultsTable";
 import {performDraw} from "../services/DataService";
@@ -26,9 +26,11 @@ const columns = [
 function DrawPage() {
     const [form] = Form.useForm();
     const [data, setData] = useState<any | null>(null)
+    const [loading, setLoading] = useState<boolean>(false)
 
     async function handleSuccess(values: any) {
         try {
+            setLoading(true);
             const data = await performDraw(values.drawNumber, values.drawPass);
             if (data.errorMessages) {
                 openNotification("Error ", data.errorMessages.join(`\n`));
@@ -37,6 +39,8 @@ function DrawPage() {
             }
         } catch (e) {
             openNotification("Error", "Unable to perform draw operation")
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -105,6 +109,12 @@ function DrawPage() {
                     </Form.Item>
                 </Form>
             </Row>
+
+            {loading &&
+                <Row justify={"center"}>
+                    <Spin tip="Loading" size="large"/>
+                </Row>
+            }
 
             <br/>
                 <ResultsTable data={data} columns={columns}/>

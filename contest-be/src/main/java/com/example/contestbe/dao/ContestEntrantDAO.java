@@ -80,7 +80,20 @@ public class ContestEntrantDAO {
 
     @Transactional
     public void performDraw(int idx) {
-        contestEntrantRepository.updateDrawId(idx, Instant.now());
+
+        List<ContestEntrant> contestEntrants = contestEntrantRepository.findAll();
+        contestEntrants.forEach(
+                contestEntrant -> {
+                    String md5subString = contestEntrant.getHash().substring(idx, idx + 8);
+                    Long drawId = Long.parseLong(md5subString, 16);
+
+                    contestEntrant.setIdx(idx);
+                    contestEntrant.setDrawId(drawId);
+                    contestEntrant.setDrawDate(Instant.now());
+
+                    contestEntrantRepository.saveAndFlush(contestEntrant);
+                }
+        );
     }
 
 
