@@ -10,6 +10,9 @@ env:
   ECS_TASK_DEFINITION: task-definition.json
   CONTAINER_NAME: devoxx-be
 
+permissions:
+  id-token: write
+
 jobs:
   build:
     name: Build Image
