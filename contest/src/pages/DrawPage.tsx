@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, Form, InputNumber, notification, Row, Table} from "antd";
+import {Button, Form, Input, InputNumber, notification, Row, Table} from "antd";
 import TotalParticipants from "../components/TotalParticipants";
 import ResultsTable from "../components/ResultsTable";
 import {performDraw} from "../services/DataService";
@@ -25,12 +25,11 @@ const columns = [
 
 function DrawPage() {
     const [form] = Form.useForm();
-    const [drawNum, setDrawNum] = useState<any | null>(null)
     const [data, setData] = useState<any | null>(null)
 
     async function handleSuccess(values: any) {
         try {
-            const data = await performDraw(drawNum);
+            const data = await performDraw(values.drawNumber, values.drawPass);
             if (data.errorMessages) {
                 openNotification("Error ", data.errorMessages.join(`\n`));
             } else {
@@ -81,10 +80,21 @@ function DrawPage() {
                             }
                         ]}>
 
-                        <InputNumber min={0} max={9} onChange={(value) => {
-                            setDrawNum(value)
-                        }}/>
+                        <InputNumber min={0} max={9} />
 
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Pass : "
+                        name="drawPass"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input the draw pass',
+                            }
+                        ]}>
+
+                        <Input />
                     </Form.Item>
 
                     <Form.Item>

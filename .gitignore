@@ -24,3 +24,5 @@ hs_err_pid*
 replay_pid*
 /.idea/uiDesigner.xml
 .idea
+/h2/devoxx-contest-db.mv.db
+/h2/devoxx-contest-db.trace.db

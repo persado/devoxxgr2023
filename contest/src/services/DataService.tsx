@@ -36,10 +36,10 @@ export const fetchHtmlData = async (touchpointName: string, userId: string) => {
 };
 
 
-export const performDraw = async (drawNum: any) => {
+export const performDraw = async (drawNum: any, drawPass: any) => {
     try {
         const res = await fetch(
-            drawUrl + new URLSearchParams({"idx": drawNum}),
+            drawUrl + new URLSearchParams({"idx": drawNum, "pass" :drawPass}),
             {
                 method: 'POST',
                 headers: {
