@@ -7,7 +7,6 @@ const ExpirationService = {
         return now > expirationDate;
     }
 
-
 };
 
 export default ExpirationService;

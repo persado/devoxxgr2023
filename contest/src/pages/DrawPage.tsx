@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Button, Form, InputNumber, notification, Row, Table} from "antd";
 import TotalParticipants from "../components/TotalParticipants";
 import ResultsTable from "../components/ResultsTable";
+import {performDraw} from "../services/DataService";
 
 
 const columns = [
@@ -27,12 +28,14 @@ function DrawPage() {
     const [drawNum, setDrawNum] = useState<any | null>(null)
     const [data, setData] = useState<any | null>(null)
 
-    const drawUrl = process.env.REACT_APP_API_URL + '/draw?';
-
     async function handleSuccess(values: any) {
-        console.log(values);
         try {
-            await dataFetch();
+            const data = await performDraw(drawNum);
+            if (data.errorMessages) {
+                openNotification("Error ", data.errorMessages.join(`\n`));
+            } else {
+                setData(data);
+            }
         } catch (e) {
             openNotification("Error", "Unable to perform draw operation")
         }
@@ -51,29 +54,6 @@ function DrawPage() {
                 </>
             )
         })
-    };
-
-    const dataFetch = async () => {
-        console.log("Fetching data for draw num: " + drawNum);
-
-        //TODO add a code input to be verified in the backend
-
-        const res = await fetch(
-            drawUrl + new URLSearchParams({"idx": drawNum}),
-            {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                }
-            }
-        )
-
-        const data = await res.json();
-        if (data.errorMessages) {
-            openNotification("Error " + res.status, data.errorMessages.join(`\n`));
-        } else {
-            setData(data);
-        }
     };
 
     return (
