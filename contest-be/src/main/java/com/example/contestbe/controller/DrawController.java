@@ -5,6 +5,7 @@ import com.example.contestbe.service.ContestEntrantService;
 import com.example.contestbe.utils.ContestUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,19 +16,26 @@ import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin
+@CrossOrigin(origins = {"http://localhost:3000", "https://persado.github.io"})
 @Slf4j
 public class DrawController {
 
     private final ContestEntrantService contestEntrantService;
     private final ContestUtils contestUtils;
 
+    @Value("${contest.draw-pass:drawPass}")
+    private String drawPass;
+
     @PostMapping(value = "/draw", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> draw(@RequestParam int idx) {
+    public ResponseEntity<?> draw(@RequestParam int idx, @RequestParam String pass) {
 
         Set<String> errorMessages = contestUtils.validateContestOpening();
         if (!errorMessages.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseDTO.builder().errorMessages(errorMessages).build());
+        }
+
+        if (!pass.equals(drawPass)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseDTO.builder().errorMessages(Set.of("Invalid draw pass")).build());
         }
 
         if (idx < 0 || idx > 9) {

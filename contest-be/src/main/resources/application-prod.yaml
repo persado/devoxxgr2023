@@ -6,3 +6,4 @@ spring:
 
 contest:
   start-date-validation: true
+  draw-pass: <CONFIGURE-ME>

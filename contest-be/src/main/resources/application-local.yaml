@@ -6,3 +6,4 @@ spring:
 
 contest:
   start-date-validation: false
+  draw-pass: devoxxgr2023

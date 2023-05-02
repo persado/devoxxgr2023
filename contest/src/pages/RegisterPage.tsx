@@ -4,6 +4,8 @@ import RegistrationForm from "../components/RegistrationForm";
 import React, {useEffect} from "react";
 
 function RegisterPage() {
+    const current = new Date();
+    const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear() } ${current.getHours()}:${current.getMinutes()} `;
 
     useEffect(() => {
         // TODO view event?
@@ -17,6 +19,7 @@ function RegisterPage() {
             <Col xs={24} xl={8} style={{textAlign: 'center', padding:20}}>
                 <h1> Register and win <i>SOMETHING</i> !</h1>
                 <p> The contest is scheduled to conclude on <b>May 05, 2023 at 18:20 EET</b>, after which the winner will be informed via email and can claim their prize at the Persado booth.</p>
+                <p> Current date: {date} </p>
 
                 <img src={wheel} className="App-logo" alt="wheel" style={{maxWidth: 300, maxHeight: 300}}/>
             </Col>
