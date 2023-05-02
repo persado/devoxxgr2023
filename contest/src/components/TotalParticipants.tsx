@@ -1,22 +1,17 @@
 import {useEffect, useState} from "react";
+import {getTotalParticipants} from "../services/DataService";
 
 function TotalParticipants() {
 
     const [data, setData] = useState(null);
-    const url = process.env.REACT_APP_API_URL + '/total_participants';
 
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(url);
-            const newData = await response.json();
-            setData(newData);
-        };
-
-        fetchData();
+        getTotalParticipants().then(totalParticipants => setData(totalParticipants));
     }, []);
 
     return (
         <div>Total number of participants: {data}</div>
     );
 }
+
 export default TotalParticipants;

@@ -2,10 +2,9 @@ import * as React from "react";
 import {Button, Form, Input, Select, notification, Checkbox} from "antd";
 import ExpirationService from "../services/ExpirationService";
 import {useNavigate} from "react-router-dom";
-
+import {registerUser} from "../services/DataService";
 
 export default function RegistrationForm() {
-    const registerUrl = process.env.REACT_APP_API_URL + '/register';
     const navigate = useNavigate();
     const [form] = Form.useForm();
 
@@ -14,7 +13,10 @@ export default function RegistrationForm() {
             console.log("Contest expired");
             window.location.reload();
         } else {
-            register(values);
+            register(values).catch(err => {
+                console.log(err.message);
+                openNotification("Error", "Unable to perform registration");
+            });
         }
     };
 
@@ -34,40 +36,27 @@ export default function RegistrationForm() {
     };
 
 
-    function register(values: any) {
-        fetch(registerUrl, {
-            method: 'POST',
-            body: JSON.stringify(values),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        })
-            .then(res => {
-                    if (!res.ok) {
-                        res.json()
-                            .then(data => {
-                                    console.log(data);
-                                    if (data.errorMessages) {
-                                        openNotification("Error " + res.status, data.errorMessages.join(`\n`));
-                                    } else {
-                                        openNotification("Error " + res.status, "Unable to perform registration");
-                                    }
-                                }
-                            )
-                            .catch((err) => {
-                                openNotification("Error " + res.status, "Unable to perform registration");
-                            });
-                    } else {
-                        navigate("/success", {state: {fullName: values.fullname, email: values.email}});
-                    }
-                }
-            )
-            .catch((err) => {
-                console.log(err.message);
-                openNotification("Error", "Unable to perform registration");
-            });
-    }
+    async function register(values: any) {
+        const res = await registerUser(values);
 
+        if (!res.ok) {
+            res.json()
+                .then(data => {
+                        console.log(data);
+                        if (data.errorMessages) {
+                            openNotification("Error " + res.status, data.errorMessages.join(`\n`));
+                        } else {
+                            openNotification("Error " + res.status, "Unable to perform registration");
+                        }
+                    }
+                )
+                .catch((err) => {
+                    openNotification("Error " + res.status, "Unable to perform registration");
+                });
+        } else {
+            navigate("/success", {state: {fullName: values.fullname, email: values.email}});
+        }
+    }
 
     return (
         <Form form={form} layout={"vertical"}
