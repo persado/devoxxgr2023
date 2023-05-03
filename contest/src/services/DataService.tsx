@@ -1,39 +1,7 @@
 
-const baseTouchpointRequestUrl = process.env.REACT_APP_TOUCHPOINT_URL + '/' + process.env.REACT_APP_CAMPAIGN ;
 const drawUrl = process.env.REACT_APP_API_URL + '/draw?';
 const totalParticipantsUrl = process.env.REACT_APP_API_URL + '/total_participants';
 const registerUrl = process.env.REACT_APP_API_URL + '/register';
-
-
-export const fetchImgSourceUrl = async (touchpointName: string, userId: string) => {
-    try {
-        const url = baseTouchpointRequestUrl + '/' + touchpointName + '?user_id=' + userId;
-        const response = await fetch(url);
-        if (response.ok) {
-            return response.url;
-        }
-        return null;
-    } catch (e) {
-        console.log("Unable to fetch img source data")
-        return null;
-    }
-};
-
-
-export const fetchHtmlData = async (touchpointName: string, userId: string) => {
-    try {
-        const url = baseTouchpointRequestUrl + '/' + touchpointName + '?user_id=' + userId;
-        const response = await fetch(url);
-        if (response.ok) {
-            const responseData = await response.text();
-            return responseData;
-        }
-        return null;
-    } catch (e) {
-        console.log("Unable to fetch text data for touchpoint")
-        return null;
-    }
-};
 
 
 export const performDraw = async (drawNum: any, drawPass: any) => {
