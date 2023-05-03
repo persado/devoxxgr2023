@@ -25,7 +25,13 @@ export const performDraw = async (drawNum: any, drawPass: any) => {
 
 export const getTotalParticipants = async () => {
     try {
-        const response = await fetch(totalParticipantsUrl);
+        const response = await fetch(totalParticipantsUrl, {
+            method: 'GET',
+            headers:
+                new Headers({
+                    "ngrok-skip-browser-warning": "69420",
+                }),
+        });
         const totalParticipants = await response.json();
         return totalParticipants;
     } catch (e) {
