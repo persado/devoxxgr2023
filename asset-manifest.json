@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/devoxxgr2023/static/css/main.073c9b0a.css",
-    "main.js": "/devoxxgr2023/static/js/main.9e12d530.js",
+    "main.js": "/devoxxgr2023/static/js/main.162ff092.js",
     "static/js/787.646e534b.chunk.js": "/devoxxgr2023/static/js/787.646e534b.chunk.js",
     "static/media/wheel.webp": "/devoxxgr2023/static/media/wheel.4a7adf878790d9bdd76f.webp",
     "static/media/logo-persado-black.svg": "/devoxxgr2023/static/media/logo-persado-black.74ec52d2f59ad4c752253247ff75ab06.svg",
     "index.html": "/devoxxgr2023/index.html",
     "main.073c9b0a.css.map": "/devoxxgr2023/static/css/main.073c9b0a.css.map",
-    "main.9e12d530.js.map": "/devoxxgr2023/static/js/main.9e12d530.js.map",
+    "main.162ff092.js.map": "/devoxxgr2023/static/js/main.162ff092.js.map",
     "787.646e534b.chunk.js.map": "/devoxxgr2023/static/js/787.646e534b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.9e12d530.js"
+    "static/js/main.162ff092.js"
   ]
 }
