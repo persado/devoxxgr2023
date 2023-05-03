@@ -15,7 +15,7 @@ public class ContestEntrantService {
     private final ContestEntrantDAO contestEntrantDAO;
 
     public ResponseDTO register(RegistrationRequestDTO registrationRequestDTO) {
-        registrationRequestDTO.setEmail(registrationRequestDTO.getEmail().trim());
+        registrationRequestDTO.setEmail(registrationRequestDTO.getEmail().trim().toLowerCase());
         String md5Hex = DigestUtils
                 .md5Hex(registrationRequestDTO.getEmail()).toLowerCase();
         registrationRequestDTO.setHash(md5Hex);
