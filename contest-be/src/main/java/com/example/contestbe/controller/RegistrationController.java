@@ -43,6 +43,9 @@ public class RegistrationController {
         if (!bucket.tryConsume(1)) {
             return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(ResponseDTO.builder().errorMessages(Set.of("Too many requests")).build());
         }
+        if (contestEntrantService.contestPerformed()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ResponseDTO.builder().errorMessages(Set.of("Contest Expired")).build());
+        }
 
         ResponseDTO responseDTO = contestEntrantService.register(registrationRequestDTO);
         if (CollectionUtils.isEmpty(responseDTO.getErrorMessages())) {

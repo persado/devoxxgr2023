@@ -3,6 +3,7 @@ import SuccessPage from "../pages/SuccessPage";
 import RegisterPage from "../pages/RegisterPage";
 import DrawPage from "../pages/DrawPage";
 import AppWrapper from "./AppWrapper";
+import ContestExpired from "./ContestExpired";
 
 function Main() {
     return (
@@ -13,6 +14,7 @@ function Main() {
             <Route path='/success' element={<SuccessPage/>} />
         </Route>
         <Route path='/draw' element={<DrawPage/>} />
+        <Route path='/expiration' element={<ContestExpired/>} />
     </Routes>
     );
 }

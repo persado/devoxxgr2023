@@ -8,9 +8,6 @@ function ContestExpired() {
                 <h1>The contest has now expired</h1>
             </Row>
 
-            <Row justify="center">
-                <p>Thank you for participating!</p>
-            </Row>
         </div>
 
     );

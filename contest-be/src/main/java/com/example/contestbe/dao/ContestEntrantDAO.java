@@ -57,7 +57,7 @@ public class ContestEntrantDAO {
         return contestEntrantRepository.countByIdxIsNotNull() == 0;
     }
 
-    private DrawResultDTO getDrawResults() {
+    public DrawResultDTO getDrawResults() {
         List<ContestEntrant> contestEntrants = contestEntrantRepository.findTop20ByDrawIdIsNotNullOrderByDrawIdAsc();
 
         if (!contestEntrants.isEmpty()) {

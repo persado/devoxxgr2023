@@ -31,4 +31,8 @@ public class ContestEntrantService {
     public long getTotalParticipants() {
         return contestEntrantDAO.getTotalParticipants();
     }
+
+    public boolean contestPerformed() {
+        return contestEntrantDAO.getDrawResults().getIdx() != null;
+    }
 }

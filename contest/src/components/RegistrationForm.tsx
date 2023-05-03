@@ -44,7 +44,11 @@ export default function RegistrationForm() {
                 .then(data => {
                         console.log(data);
                         if (data.errorMessages) {
-                            openNotification("Error " + res.status, data.errorMessages.join(`\n`));
+                            if (res.status === 403 && data.errorMessages.includes("Contest Expired")) {
+                                navigate("/expiration");
+                            } else {
+                                openNotification("Error " + res.status, data.errorMessages.join(`\n`));
+                            }
                         } else {
                             openNotification("Error " + res.status, "Unable to perform registration");
                         }
