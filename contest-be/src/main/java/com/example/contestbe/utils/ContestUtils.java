@@ -23,9 +23,11 @@ public class ContestUtils {
         if (contestStartDateValidation) {
             String contestStartDate = "05/05/2023 18:20";
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-            ZonedDateTime dateTime = LocalDateTime.parse(contestStartDate, formatter).atZone(ZoneId.of("Europe/Athens"));
+//            ZonedDateTime dateTime = LocalDateTime.parse(contestStartDate, formatter).atZone(ZoneId.of("Europe/Athens"));
+            LocalDateTime dateTime = LocalDateTime.parse(contestStartDate, formatter);
 
-            ZonedDateTime now = LocalDateTime.now().atZone(ZoneId.of("Europe/Athens"));
+//            ZonedDateTime now = LocalDateTime.now().atZone(ZoneId.of("Europe/Athens"));
+            LocalDateTime now = LocalDateTime.now();
 
             if (now.isBefore(dateTime)) {
                 Duration duration = Duration.between(now, dateTime);
