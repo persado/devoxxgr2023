@@ -25,6 +25,25 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Persado Contest</title>
+
+    <!-- Persado Platform -->
+    <script>
+      persadoScript=document.createElement("script"),url=encodeURIComponent(document.location.href),persadoScript.src="https://rts.persado.com/script/v1/js?u="+url,document.querySelector("head").appendChild(persadoScript);
+    </script>
+    <!-- End of Persado Platform -->
+    <!-- (1) Loading generic -->
+    <script src="https://wsb.persado.com/assets/wsb/1.5/wsb.js"></script>
+    <!-- (2) Initializing JS tracker -->
+    <script type="text/javascript">
+      persado_sp('newTracker','prd','https://t.persado.com',{appId:'0a0dc9ea-875d-13cb-8187-db692fc90002',discoverRootDomain:true,respectDoNotTrack:true,cookieSameSite:'Lax',cookieSecure:false,contexts:{webPage:true}});
+      persado_sp('trackPageView');
+    </script>
+    <!-- (3) Track CTA (view) -->
+    <script type="text/javascript">
+      PRSD.track(persado_sp,'view',{channel:'web',campaign:'test',variant:'<VARIANT>'});
+    </script>
+
+
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
